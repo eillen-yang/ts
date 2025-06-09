@@ -74,4 +74,132 @@ sum("10", "20");
 > 변수에 대한 타입이 지정되어 있기 때문에, vscode에서 해당 타입에 대한 API를 미리 보기로 띄워 준다.<br/>
 > API를 일일이 치지 않고 tab으로 빠르고 정확하게 작성해 나갈 수 있다.
 
+## `Typescript` 기본 문법
+
+- `string`
+- `number`
+- `boolean`
+- `object`
+- `array`
+- `tuple`
+- `enum`
+- `null`
+- `undefined`
+- `any`
+- `void`
+- `never`
+
+### `TS`에서의 "객체 타입"
+
+1. `object` 타입<br/>
+   단순히 **이 변수는 객체다** 라고만 알려주는 타입
+2. 객체 리터럴 타입<br/>
+   객체가 어떤 속성들을 가지고, 각 속성의 값이 어떤 타입인지까지 **정확하게 정해주는 방식**
+
+### `TS`에서 `"tuple"`
+
+**배열의 길이가 고정되고 각 요소의 타입이 지정되어 있는 배열 형식**
+
+```javascript
+let arr: [string, number] = ["hi", 10];
+// 만약, 정의하지 않은 타입 혹은 인덱스로 접근할 경우에는 오류발생
+```
+
+#### 배열과 튜플의 차이
+
+배열 (`Array`)
+
+- 같은 타입의 값들을 순서대로 모아놓은 자료구조
+- ex) 학생들의 이름 목록, 점수 목록 등의 배열
+
+```javascript
+// 숫자 배열
+let numbers: number[] = [1, 2, 3, 4];
+
+// 문자 배열
+let names: Array<string> = ["Tom", "Jane", "Bob"];
+
+// 객체 배열
+interface Student {
+  name: string;
+  grade: number;
+}
+let students: Student[] = [
+  { name: "Jisu", grade: 5 },
+  { name: "Min", grade: 4 },
+];
+```
+
+튜플 (`Tuple`)
+
+- "정해진 개수"의 "각각 다른 타입"의 값을 순서대로 담는 자료구조
+- ex) [학생이름, 나이]처럼 서로 다른 타입을 한 번에 묶고 싶을 때 사용
+
+```javascript
+let studentInfo: [string, number] = ["Jisu", 5];
+```
+
+#### 실제 사용
+
+- 배열 : 데이터 목록 (게시글 리스트, 사용자 목록 등..)
+- 튜플 : `API`응답에서 여러 값을 한 번에 반환하거나 좌표, 상태값 등 .. **"정해진 구조"**의 데이터를 다룰 때
+
+### `TS`에서의 `enum`
+
+`C`, `Java`와 같은 다른언어에서 흔하게 쓰이는 타입으로 특정 값(상수)들의 집합을 의미한다.
+
+```javascript
+enum Avengers {
+  Capt,
+  IronMan,
+  Thor
+}
+
+let hero: Avengers = Avengers.Capt;
+
+// 인덱스 번호로도 접근 가능하다.
+let hero: Avengers = Avengers[0];
+```
+
+### `TS`에서의 `any`
+
+- 모든 타입에 사용할 수 있는 치트키같은 타입이다.
+- 특정 데이터의 타입을 잘 모르거나, 자바스크립트 프로젝트에 타입스크립트를 점진적으로 사용하면 좋은 타입이다.
+- 단어 의미 그대로 모든 타입에 대해 허용한다.
+- 결론적으로는 `any`를 사용하면 `TS`를 사용하는 의미가 없기에 자주 사용하지 않는 것이 좋다.
+
+### `TS`에서의 `void`
+
+- **반환 값이 없는 함수의 반환 타입**이다.
+- `return`이 없거나 `return`이 있더라도 반환하는 값이 없으면 함수의 반환 티입을 `void`로 지정한다.
+
+```javascript
+// return문 없음
+function printSomething(): void {
+  console.log("sth");
+}
+
+// return문이 있지만 반환하는 값이 없음
+function returnNothing(): void {
+  return;
+}
+```
+
+### `TS`에서의 `never`
+
+- **절대 발생하지 않는 값**을 의미한다.
+- ex) 함수가 반복문이나 에러 핸들링으로 인해 함수의 끄테 절대 도달하지 안는 경우에 `never`타입을 사용할 수 있다.
+
+```javascript
+function loopForever(): never {
+  while (true) {
+    // ...
+  }
+}
+
+function neverEnd(): never {
+  throw new Error("unexpected");
+}
+```
+
 ## 제네릭을 활용한 초미니 프로젝트
